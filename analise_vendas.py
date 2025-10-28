@@ -23,3 +23,18 @@ print(df.head())
 
 #Converter datas
 
+df["data"] = pd.to_datetime(df["data"], errors = "coerce")
+
+#Remvoer linhas com datas inválidas
+
+df = df.dropna(subset=["data"])
+
+#Garantir tipos corretos
+
+df["quantidade"] = df["quantidade"].astype(int)
+df["preco_unitario"] = df["preco_unitario"].astype(float)
+
+
+
+
+
