@@ -4,6 +4,7 @@ import seaborn as sns
 from pathlib import Path
 import tkinter as tk
 from tkinter import filedialog, messagebox
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 #print("Fefe é muito bonita e tem um zoião, au au au au")
 
@@ -26,17 +27,6 @@ def selecionar_arquivos():
 
 arquivo_selecionado = selecionar_arquivos()
 
-"""
-print(" Selecione um arquivo CSV: ")
-arquivo_csv = selecionar_arquivos
-
-if not arquivo_csv:
-    arquivo_csv = arquivo_padrao
-    print(f"Nenhum arquivo selecionado. Usando padrão: {arquivo_csv.name}")
-else:
-    arquivo_csv = Path(arquivo_csv)
-    print(f"Arquivo selecionado: {os.path.basename(arquivo_csv)}")
-"""
 #leitura do dataset
 
 df = pd.read_csv(arquivo_selecionado, encoding = "utf-8-sig")
@@ -91,20 +81,35 @@ print(produtos_mais_vendidos.head(5))
 # Visualização dos Gráficos
 
 sns.set(style = "whitegrid")
+figuras = []
 
 #Gráfico 1: Faturamento por categoria
 
-plt.figure(figsize=(8, 5))
+fig, ax1 = plt.subplots(figsize = (8, 5))
+sns.barplot(x=faturamento_cat.index, y = faturamento_cat.values, palette="viridis")
+ax1.set_title("Faturamento por categoria")
+ax1.set_xlabel("Categoria")
+ax1.set_ylabel("Faturamento (R$)")
+figuras.append(fig1)
+
+"""plt.figure(figsize=(8, 5))
 sns.barplot(x=faturamento_cat.index, y=faturamento_cat.values, palette = "viridis")
 plt.title("Faturamento por categoria")
 plt.xlabel("Categoria")
 plt.ylabel("Faturamento (R$)")
 plt.tight_layout()
 plt.show()
-
+"""
 #Gráfico 2: 5 Produtos mais vendidos
 
-plt.figure(figsize=(8, 5))
+fig2, ax2 = plt.subplots(figsize=(8, 5))
+sns.barplot(x=faturamento_cat.index, y=faturamento_cat.values, palette="viridis")
+ax1.set_title("Faturamento por categoria")
+ax1.set_xlabel("Categoria")
+ax1.set_ylabel("Faturamento (R$)")
+figuras.append(fig1)
+
+"""plt.figure(figsize=(8, 5))
 sns.barplot(
     x = produtos_mais_vendidos.head(5).index,
     y = produtos_mais_vendidos.head(5).values,
@@ -116,7 +121,7 @@ plt.xlabel("Produto")
 plt.ylabel("Quantidade vendida")
 plt.tight_layout()
 plt.show()
-
+"""
 #Gráfico 3: Faturamento mensal
 
 df["mes"] = df["data"].dt.to.period("M").astype(str)
@@ -137,6 +142,8 @@ saida_excel = arquivo_selecionado.parent / "resumo_faturamento.xlsx"
 faturamento_cat.to_excel(saida_excel)
 
 print(f"\n Relatório salvo em: {saida_excel}")
+
+
 
 
 
