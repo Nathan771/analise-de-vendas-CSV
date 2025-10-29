@@ -6,10 +6,6 @@ import tkinter as tk
 from tkinter import filedialog, messagebox
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-#print("Fefe é muito bonita e tem um zoião, au au au au")
-
-#Configuração do dataset
-
 
 # Interface de seleção do arquivo
 
@@ -45,12 +41,12 @@ df["data"] = pd.to_datetime(df["data"], errors = "coerce")
 
 df = df.dropna(subset=["data"])
 
-#Garantir tipos corretos
+#tipos definidos
 
 df["quantidade"] = df["quantidade"].astype(int)
 df["preco_unitario"] = df["preco_unitario"].astype(float)
 
-#Criar coluna de faturamento
+#coluna de faturamento
 
 df["faturamento"] = df["quantidade"] * df["preco_unitario"]
 
@@ -95,14 +91,6 @@ ax1.set_xlabel("Categoria")
 ax1.set_ylabel("Faturamento (R$)")
 figs.append(fig)
 
-"""plt.figure(figsize=(8, 5))
-sns.barplot(x=faturamento_cat.index, y=faturamento_cat.values, palette = "viridis")
-plt.title("Faturamento por categoria")
-plt.xlabel("Categoria")
-plt.ylabel("Faturamento (R$)")
-plt.tight_layout()
-plt.show()
-"""
 #Gráfico 2: 5 Produtos mais vendidos
 
 fig2, ax2 = plt.subplots(figsize=(8, 5))
@@ -119,19 +107,6 @@ ax2.set_xlabel("Produto")
 ax2.set_ylabel("Quantidade vendida")
 figs.append(fig2)
 
-"""plt.figure(figsize=(8, 5))
-sns.barplot(
-    x = produtos_mais_vendidos.head(5).index,
-    y = produtos_mais_vendidos.head(5).values,
-    palette = "magma"
-
-)
-plt.title("Top 5 produtos mais vendidos")
-plt.xlabel("Produto")
-plt.ylabel("Quantidade vendida")
-plt.tight_layout()
-plt.show()
-"""
 #Gráfico 3: Faturamento mensal
 
 fig3, ax3 = plt.subplots(figsize= (8, 5))
@@ -144,18 +119,6 @@ for label in ax3.get_xticklabels():
     label.set_rotation(45)
 figs.append(fig3)
 
-"""df["mes"] = df["data"].dt.to.period("M").astype(str)
-faturamento_mensal = df.groupby("mes")["faturamento"].sum()
-
-plt.figure(figsize = (8, 5))
-sns.lineplot(x=faturamento_mensal.index, y=faturamento_mensal.values, marker = "o", color="blue")
-plt.title("Faturamento mensal")
-plt.xlabel("Mês")
-plt.ylabel("Faturamento (R$)")
-plt.xticks(rotation = 45)
-plt.tight_layout()
-plt.show()
-"""
 # interface interativa
 
 root = tk.Tk()
@@ -196,7 +159,6 @@ btn_prox.pack(side="left", padx=10)
 mostrar_grafico()
 
 
-
 #Exportação 
 
 saida_excel = arquivo_selecionado.parent / "resumo_faturamento.xlsx"
@@ -205,7 +167,7 @@ faturamento_cat.to_excel(saida_excel)
 print(f"\n Relatório salvo em: {saida_excel}")
 
 
-#manter a janela aberta
+#Manter a janela aberta
 
 root.mainloop()
 
