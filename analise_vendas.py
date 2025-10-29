@@ -119,7 +119,24 @@ plt.show()
 
 #Gráfico 3: Faturamento mensal
 
+df["mes"] = df["data"].dt.to.period("M").astype(str)
+faturamento_mensal = df.groupby("mes")["faturamento"].sum()
 
+plt.figure(figsize = (8, 5))
+sns.lineplot(x=faturamento_mensal.index, y=faturamento_mensal.values, marker = "o", color="blue")
+plt.title("Faturamento mensal")
+plt.xlabel("Mês")
+plt.ylabel("Faturamento (R$)")
+plt.xticks(rotation = 45)
+plt.tight_layout()
+plt.show()
+
+#Exportação 
+
+saida_excel = arquivo_selecionado.parent / "resumo_faturamento.xlsx"
+faturamento_cat.to_excel(saida_excel)
+
+print(f"\n Relatório salvo em: {saida_excel}")
 
 
 
