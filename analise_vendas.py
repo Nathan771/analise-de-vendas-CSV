@@ -3,31 +3,32 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
 import tkinter as tk
-from tkinter import filedialog
-import os
+from tkinter import filedialog, messagebox
 
+#print("Fefe é muito bonita e tem um zoião, au au au au")
 
 #Configuração do dataset
 
 
 # Interface de seleção do arquivo
 
-def selecionar_arquivos_csv():
-    "Abre uma janela para o usuário escolher o arquivo CSV."
+def selecionar_arquivos():
     root = tk.Tk()
     root.withdraw() #Oculta a janela principal
-    caminho_arquivo = filedialog.askopenfilename(
+    caminho = filedialog.askopenfilename(
         title="Selecione o arquivo CSV de vendas",
         filetypes=[("Arquivos CSV", "*.csv")]
     )
-    return caminho_arquivo
+    if not caminho:
+        messagebox.showwarning("Aviso", "Nenhum arquivo foi selecionado. Encerrando o programa.")
+        exit()
+    return Path(caminho)
 
-#caminho
+arquivo_selecionado = selecionar_arquivos()
 
-arquivo_padrao = Path(__file__).parent / "vendas.aleatorias.csv"
-
+"""
 print(" Selecione um arquivo CSV: ")
-arquivo_csv = selecionar_arquivos_csv
+arquivo_csv = selecionar_arquivos
 
 if not arquivo_csv:
     arquivo_csv = arquivo_padrao
@@ -35,10 +36,10 @@ if not arquivo_csv:
 else:
     arquivo_csv = Path(arquivo_csv)
     print(f"Arquivo selecionado: {os.path.basename(arquivo_csv)}")
-
+"""
 #leitura do dataset
 
-df = pd.read_csv(arquivo_csv, encoding = "utf-8-sig")
+df = pd.read_csv(arquivo_selecionado, encoding = "utf-8-sig")
 
 print(" Dataset carregado com sucesso!")
 print(f"Total de registros: {len(df)}")
@@ -89,6 +90,34 @@ print(produtos_mais_vendidos.head(5))
 
 # Visualização dos Gráficos
 
+sns.set(style = "whitegrid")
+
+#Gráfico 1: Faturamento por categoria
+
+plt.figure(figsize=(8, 5))
+sns.barplot(x=faturamento_cat.index, y=faturamento_cat.values, palette = "viridis")
+plt.title("Faturamento por categoria")
+plt.xlabel("Categoria")
+plt.ylabel("Faturamento (R$)")
+plt.tight_layout()
+plt.show()
+
+#Gráfico 2: 5 Produtos mais vendidos
+
+plt.figure(figsize=(8, 5))
+sns.barplot(
+    x = produtos_mais_vendidos.head(5).index,
+    y = produtos_mais_vendidos.head(5).values,
+    palette = "magma"
+
+)
+plt.title("Top 5 produtos mais vendidos")
+plt.xlabel("Produto")
+plt.ylabel("Quantidade vendida")
+plt.tight_layout()
+plt.show()
+
+#Gráfico 3: Faturamento mensal
 
 
 
