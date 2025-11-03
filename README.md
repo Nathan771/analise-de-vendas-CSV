@@ -1,6 +1,6 @@
-# 📊 Análise de Vendas com Python
+#  Análise de Vendas com Python
 
-### 🧠 Projeto de Data Analysis – Portfólio Profissional
+# Projeto de Data Analysis – Portfólio Profissional
 
 
 
@@ -13,24 +13,24 @@ O objetivo é demonstrar habilidades em **limpeza, manipulação e visualizaçã
 
 ---
 
-## 📁 Estrutura do Projeto
+#  Estrutura do Projeto
 
 
 ---
 
-## 🧩 Tecnologias Utilizadas
+# 🧩 Tecnologias Utilizadas
 
-| Ferramenta | Descrição |
-|-------------|------------|
-| 🐍 **Python 3.10+** | Linguagem principal |
-| 📦 **Pandas** | Manipulação e análise de dados |
-| 📊 **Matplotlib / Seaborn** | Visualização de dados |
-| 📘 **OpenPyXL** | Exportação de relatórios para Excel |
-| 📁 **Git + GitHub** | Controle de versão e portfólio |
+| Ferramentas:
+|-------------
+| Python 3.10+*
+| Pandas
+| Matplotlib / Seaborn
+| OpenPyXL
+| Git + GitHub 
 
 ---
 
-## ⚙️ Como Executar o Projeto
+#Como Executar o Projeto
 
 1. Clone o repositório
    bash
